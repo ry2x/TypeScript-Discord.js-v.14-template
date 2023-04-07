@@ -1,22 +1,58 @@
-# Typescript-Discord.js-v14-Template
+# Typescript-Discord.js-v14-Template with yarn!
 
-A quick-start template for Discord.js v14 in Typescript that contains handling for commands, events, and interactions!
+A quick-start template for Discord.js v14 in Typescript with yarn that contains handling for commands, events, and interactions!
+
+> This project is a frok of [TSLARoadster/TypeScript-Discord.js-v14-Template](https://github.com/TSLARoadster/TypeScript-Discord.js-v14-Template)
 
 ## Installation
 
-1. Clone this project with `git clone https://github.com/TSLARoadster/Typescript-Discord.js-v14-Template/ YOUR_PROJECT_NAME`
-2. Rename `RENAME.env` to `.env`, and configure your `config.json` and `.env` files
-3. Follow the template to create commands for your bot
+1. Clone this project with
+   ```bash
+   $git clone https://github.com/ry2x/TypeScript-Discord.js-v.14-yarn-template.git
+   ```
+2. Install dependencies with
+   ```bash
+   $yarn install
+   $yarn
+   ```
+3. Install hasky [[?]](https://www.npmjs.com/package/husky)_What is hasky_
+   ```bash
+   $yarn run prepare
+   ```
 
-## Building
+## Configuration
+1. Edit `./src/RENAME.env`
 
-Use the scripts provided in the `package.json` file
 
-## ts-node Support
+   You'll need `client_id`, `TOKEN` and `guild_id`  [[?]](https://discord.com/developers/applications) _You can get them at [here](https://discord.com/developers/applications)._
 
-To use this with ts-node:
-
+2. Rename `RENAME.env` to `.env`
+3. Edit `./src/config.json`
+   
+   Chnage "!" to configure your prefix
+   ```json
+   {
+    "prefix": "!"  
+   }
+   ```
+## Scripts
+> Check lint
+ ```bash
+$yarn run lint
+```
+> Format
 ```bash
-cd src
-ts-node-esm --files index.ts
+$yarn run prettier
+```
+> test (without compile)
+```bash
+$yarn run test
+```
+> compile files
+```bash
+$yarn run build
+```
+> run compiled files
+```bash
+$yarn run start
 ```
