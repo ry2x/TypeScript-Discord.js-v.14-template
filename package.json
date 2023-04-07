@@ -10,7 +10,7 @@
         "prettier": "prettier --write src",
         "compile": "tsc",
         "copy": "cp src/.env dist",
-        "build": "npm run lint && npm run prettier && npm run compile && npm run copy"
+        "build": "yarn run lint && yarn run prettier && yarn run compile && yarn run copy"
     },
     "dependencies": {
         "@discordjs/rest": "^1.0.1",
@@ -23,6 +23,8 @@
         "@typescript-eslint/parser": "^5.34.0",
         "eslint": "^8.23.0",
         "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-import": "^2.27.5",
+        "eslint-plugin-unused-imports": "^2.0.0",
         "husky": "^8.0.1",
         "lint-staged": "^13.0.3",
         "prettier": "^2.7.1",
