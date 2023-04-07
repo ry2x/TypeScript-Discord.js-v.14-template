@@ -4,14 +4,21 @@ import 'dotenv/config';
 import { readdirSync } from 'fs';
 import { Client, GatewayIntentBits, Collection, Partials } from 'discord.js';
 import deployGlobalCommands from './deployGlobalCommands.js';
+import logger from './logger.js';
 import type ApplicationCommand from './templates/ApplicationCommand.js';
 import type Event from './templates/Event.js';
 import type MessageCommand from './templates/MessageCommand.js';
+
 const { TOKEN } = process.env;
+
+logger.info('----Starting bot----');
 
 await deployGlobalCommands();
 
+logger.info('----finish deploy global commands----');
+
 // Discord client object
+logger.info('Create Discord Client...');
 global.client = Object.assign(
   new Client({
     intents: [
@@ -28,6 +35,9 @@ global.client = Object.assign(
 );
 
 // Set each command in the commands folder as a command in the client.commands collection
+logger.info(
+  'Set each command in the commands folder as a command in the client.commands collection'
+);
 const commandFiles: string[] = readdirSync('./commands').filter(
   (file) => file.endsWith('.js') || file.endsWith('.ts')
 );
@@ -47,6 +57,7 @@ for (const file of msgCommandFiles) {
 }
 
 // Event handling
+logger.info('Create Event Handler...');
 const eventFiles: string[] = readdirSync('./events').filter(
   (file) => file.endsWith('.js') || file.endsWith('.ts')
 );
@@ -61,3 +72,4 @@ for (const file of eventFiles) {
 }
 
 await client.login(TOKEN);
+logger.info('Bot logged in!');
