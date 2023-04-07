@@ -3,6 +3,10 @@
     "compilerOptions": {
         "resolveJsonModule": true,
         "outDir": "./dist",
-        "module": "ESNext"
+        "module": "ESNext",
+        "moduleResolution": "nodenext",
+        "ignoreDeprecations": "5.0",
+        "target": "ES2021",
+        
     }
 }
