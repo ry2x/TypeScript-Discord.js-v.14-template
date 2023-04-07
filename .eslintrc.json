@@ -5,7 +5,7 @@
         "node": true
     },
     "parser": "@typescript-eslint/parser",
-    "plugins": ["@typescript-eslint"],
+    "plugins": ["@typescript-eslint","import", "unused-imports"],
     "extends": [
         "eslint:recommended",
         "prettier",
@@ -20,6 +20,16 @@
     },
     "rules": {
         "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-unsafe-argument": "off"
+        "@typescript-eslint/no-unsafe-argument": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "unused-imports/no-unused-imports": "warn",
+        "import/order": [
+            "error",
+            {
+              "alphabetize": {
+                "order": "asc"
+              }
+            }
+          ]
     }
 }
