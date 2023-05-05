@@ -4,6 +4,12 @@ A quick-start template for Discord.js v14 in Typescript with yarn that contains 
 
 > This project is a frok of [TSLARoadster/TypeScript-Discord.js-v14-Template](https://github.com/TSLARoadster/TypeScript-Discord.js-v14-Template)
 
+#### Note : This project has no integrations for context, button and etc... 
+
+> I will add those integrations in the future.
+
+And you can find those features on my [another discord bot repo](https://github.com/ry2x/mofumofu-discord-bot)!
+
 ## Installation
 
 1. Clone this project with
