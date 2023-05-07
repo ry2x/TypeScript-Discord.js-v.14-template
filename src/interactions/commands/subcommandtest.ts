@@ -3,7 +3,7 @@ import {
   SlashCommandSubcommandBuilder,
   SlashCommandSubcommandGroupBuilder,
 } from 'discord.js';
-import ApplicationCommand from '../templates/ApplicationCommand.js';
+import ApplicationCommand from '../../templates/ApplicationCommand.js';
 
 export default new ApplicationCommand({
   data: new SlashCommandBuilder()

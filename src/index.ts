@@ -6,6 +6,8 @@ import { Client, GatewayIntentBits, Collection, Partials } from 'discord.js';
 import deployGlobalCommands from './deployGlobalCommands.js';
 import logger from './logger.js';
 import type ApplicationCommand from './templates/ApplicationCommand.js';
+import type ButtonCommand from './templates/ButtonCommands.js';
+import type ContextCommand from './templates/ContextCommands.js';
 import type Event from './templates/Event.js';
 import type MessageCommand from './templates/MessageCommand.js';
 
@@ -31,6 +33,8 @@ global.client = Object.assign(
   {
     commands: new Collection<string, ApplicationCommand>(),
     msgCommands: new Collection<string, MessageCommand>(),
+    contextCommands: new Collection<string, ContextCommand>(),
+    buttonCommands: new Collection<string, ButtonCommand>(),
   }
 );
 
@@ -38,13 +42,32 @@ global.client = Object.assign(
 logger.info(
   'Set each command in the commands folder as a command in the client.commands collection'
 );
-const commandFiles: string[] = readdirSync('./commands').filter(
+
+const commandFiles: string[] = readdirSync('./interactions/commands').filter(
   (file) => file.endsWith('.js') || file.endsWith('.ts')
 );
 for (const file of commandFiles) {
-  const command: ApplicationCommand = (await import(`./commands/${file}`))
+  const command: ApplicationCommand = (await import(`./interactions/commands/${file}`))
     .default as ApplicationCommand;
   client.commands.set(command.data.name, command);
+}
+
+const contextCommandFiles: string[] = readdirSync('./interactions/contextCommands').filter(
+  (file) => file.endsWith('.js') || file.endsWith('.ts')
+);
+for (const file of contextCommandFiles) {
+  const command: ContextCommand = (await import(`./interactions/contextCommands/${file}`))
+    .default as ContextCommand;
+  client.contextCommands.set(command.data.name, command);
+}
+
+const buttonCommandFiles: string[] = readdirSync('./interactions/buttonCommands').filter(
+  (file) => file.endsWith('.js') || file.endsWith('.ts')
+);
+for (const file of buttonCommandFiles) {
+  const command: ButtonCommand = (await import(`./interactions/buttonCommands/${file}`))
+    .default as ButtonCommand;
+  client.buttonCommands.set(command.data.name, command);
 }
 
 const msgCommandFiles: string[] = readdirSync('./messageCommands').filter(
