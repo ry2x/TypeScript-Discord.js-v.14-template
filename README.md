@@ -40,11 +40,11 @@ And you can find another features on my [another discord bot repo](https://githu
    }
    ```
 ## Scripts
-> Check lint
+> run lint
  ```bash
 $yarn run lint
 ```
-> Format
+> format
 ```bash
 $yarn run prettier
 ```
