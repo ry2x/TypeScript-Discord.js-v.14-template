@@ -88,9 +88,13 @@ const eventFiles: string[] = readdirSync('./events').filter(
 for (const file of eventFiles) {
   const event: Event = (await import(`./events/${file}`)).default as Event;
   if (event.once) {
-    client.once(event.name, (...args) => event.execute(...args));
+    client.once(event.name, (...args) => {
+      void (async () => await event.execute(...args))();
+    });
   } else {
-    client.on(event.name, (...args) => event.execute(...args));
+    client.on(event.name, (...args) => {
+      void (async () => await event.execute(...args))();
+    });
   }
 }
 
