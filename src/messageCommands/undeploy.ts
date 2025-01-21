@@ -1,10 +1,5 @@
+import config from '../config.json' assert { type: 'json' };
 import MessageCommand from '../templates/MessageCommand.js';
-
-const { prefix } = (
-  await import('../config.json', {
-    assert: { type: 'json' },
-  })
-).default;
 
 export default new MessageCommand({
   name: 'undeploy',
@@ -14,7 +9,7 @@ export default new MessageCommand({
 
     if (!args[0]) {
       await message.reply(
-        `Incorrect number of arguments! The correct format is \`${prefix}undeploy <guild/global>\``,
+        `Incorrect number of arguments! The correct format is \`${config.prefix}undeploy <guild/global>\``,
       );
       return;
     }

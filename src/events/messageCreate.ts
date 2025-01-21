@@ -1,13 +1,8 @@
 import { Events, type Message } from 'discord.js';
+import config from '../config.json' assert { type: 'json' };
 import logger from '../logger.js';
 import Event from '../templates/Event.js';
 import type MessageCommand from '../templates/MessageCommand.js';
-
-const { prefix } = (
-  await import('../config.json', {
-    assert: { type: 'json' },
-  })
-).default;
 
 export default new Event({
   name: Events.MessageCreate,
@@ -17,13 +12,13 @@ export default new Event({
     // Handles non-slash commands, only recommended for deploy commands
 
     // filters out bots and non-prefixed messages
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
+    if (!message.content.startsWith(config.prefix) || message.author.bot) return;
 
     // fetches the application owner for the bot
     if (!client.application?.owner) await client.application?.fetch();
 
     // get the arguments and the actual command name for the inputted command
-    const args = message.content.slice(prefix.length).trim().split(/ +/);
+    const args = message.content.slice(config.prefix.length).trim().split(/ +/);
     const commandName = (<string>args.shift()).toLowerCase();
 
     const command =

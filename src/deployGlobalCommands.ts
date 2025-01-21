@@ -45,6 +45,10 @@ export default async function deployGlobalCommands() {
     logger.info('---Starting refreshing application (/) commands.---');
 
     await rest.put(Routes.applicationCommands(CLIENT_ID as string), {
+      body: [],
+    });
+
+    await rest.put(Routes.applicationCommands(CLIENT_ID as string), {
       body: commands,
     });
     logger.info('---Successfully reloaded application (/) commands.---');

@@ -1,6 +1,7 @@
 import { readdirSync } from 'fs';
 import { REST } from '@discordjs/rest';
 import { type RESTPostAPIApplicationCommandsJSONBody, Routes } from 'discord.js';
+import config from '../config.json' assert { type: 'json' };
 import logger from '../logger.js';
 import type ApplicationCommand from '../templates/ApplicationCommand.js';
 import MessageCommand from '../templates/MessageCommand.js';
@@ -10,12 +11,6 @@ const { TOKEN, CLIENT_ID } = process.env as {
   CLIENT_ID: string;
 };
 
-const { prefix } = (
-  await import('../config.json', {
-    assert: { type: 'json' },
-  })
-).default;
-
 export default new MessageCommand({
   name: 'deploy',
   description: 'Deploys the slash commands',
@@ -24,7 +19,7 @@ export default new MessageCommand({
 
     if (!args[0]) {
       await message.reply(
-        `Incorrect number of arguments! The correct format is \`${prefix}deploy <guild/global>\``,
+        `Incorrect number of arguments! The correct format is \`${config.prefix}deploy <guild/global>\``,
       );
       return;
     }
