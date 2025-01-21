@@ -16,11 +16,11 @@ export default new ApplicationCommand({
         .addSubcommand(
           new SlashCommandSubcommandBuilder()
             .setName('pingping')
-            .setDescription('Replies pongpong!')
-        )
+            .setDescription('Replies pongpong!'),
+        ),
     )
     .addSubcommand(
-      new SlashCommandSubcommandBuilder().setName('test').setDescription('A test subcommand')
+      new SlashCommandSubcommandBuilder().setName('test').setDescription('A test subcommand'),
     ),
   hasSubCommands: true,
 });
