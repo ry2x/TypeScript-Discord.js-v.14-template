@@ -6,6 +6,7 @@
     "module": "NodeNext",
     "moduleResolution": "nodenext",
     "ignoreDeprecations": "5.0",
-    "target": "ES2021"
+    "target": "ES2022",
+    "verbatimModuleSyntax": true
   }
 }
