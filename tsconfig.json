@@ -1,5 +1,5 @@
 {
-  "extends": "@tsconfig/node18-strictest-esm/tsconfig.json",
+  "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
     "resolveJsonModule": true,
     "outDir": "./dist",
@@ -7,6 +7,7 @@
     "moduleResolution": "nodenext",
     "ignoreDeprecations": "5.0",
     "target": "ES2022",
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "esModuleInterop": true
   }
 }
