@@ -1,4 +1,4 @@
-import { Events, Message } from 'discord.js';
+import { Events, type Message } from 'discord.js';
 import logger from '../logger.js';
 import Event from '../templates/Event.js';
 import type MessageCommand from '../templates/MessageCommand.js';
@@ -29,7 +29,7 @@ export default new Event({
     const command =
       (client.msgCommands.get(commandName) as MessageCommand) ||
       (client.msgCommands.find(
-        (cmd: MessageCommand): boolean => cmd.aliases && cmd.aliases.includes(commandName)
+        (cmd: MessageCommand): boolean => cmd.aliases && cmd.aliases.includes(commandName),
       ) as MessageCommand);
 
     // dynamic command handling

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import type { ContextMenuCommandBuilder, ContextMenuCommandInteraction } from 'discord.js';
 
 /**

@@ -1,4 +1,4 @@
-import { BaseInteraction, Events } from 'discord.js';
+import { type BaseInteraction, Events } from 'discord.js';
 import logger from '../logger.js';
 import type ApplicationCommand from '../templates/ApplicationCommand.js';
 import type ButtonCommand from '../templates/ButtonCommands.js';
@@ -22,7 +22,7 @@ export default new Event({
     if (interaction.isButton()) {
       try {
         const command: ButtonCommand = client.buttonCommands.get(
-          interaction.customId
+          interaction.customId,
         ) as ButtonCommand;
         await command.execute(interaction);
       } catch (error) {
@@ -34,7 +34,7 @@ export default new Event({
     if (interaction.isContextMenuCommand()) {
       try {
         const command: ContextCommand = (await client.contextCommands.get(
-          interaction.commandName
+          interaction.commandName,
         )) as ContextCommand;
         await command.execute(interaction);
       } catch (error) {
@@ -45,9 +45,9 @@ export default new Event({
 
     if (interaction.isChatInputCommand()) {
       try {
-        const command: ApplicationCommand = (await client.commands.get(
-          interaction.commandName
-        )) as ApplicationCommand;
+        const command: ApplicationCommand = client.commands.get(
+          interaction.commandName,
+        ) as ApplicationCommand;
         await command.execute(interaction);
       } catch (error) {
         logger.error(error);

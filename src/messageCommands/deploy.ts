@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 import { readdirSync } from 'fs';
 import { REST } from '@discordjs/rest';
-import { RESTPostAPIApplicationCommandsJSONBody, Routes } from 'discord.js';
+import { type RESTPostAPIApplicationCommandsJSONBody, Routes } from 'discord.js';
 import logger from '../logger.js';
 import type ApplicationCommand from '../templates/ApplicationCommand.js';
 import MessageCommand from '../templates/MessageCommand.js';
+import type { commandModule } from '../types/interface.js';
 const { TOKEN, CLIENT_ID } = process.env as {
   TOKEN: string;
   CLIENT_ID: string;
@@ -24,7 +24,7 @@ export default new MessageCommand({
 
     if (!args[0]) {
       await message.reply(
-        `Incorrect number of arguments! The correct format is \`${prefix}deploy <guild/global>\``
+        `Incorrect number of arguments! The correct format is \`${prefix}deploy <guild/global>\``,
       );
       return;
     }
@@ -34,12 +34,12 @@ export default new MessageCommand({
 
       const commands: RESTPostAPIApplicationCommandsJSONBody[] = [];
       const commandFiles: string[] = readdirSync('./commands').filter(
-        (file) => file.endsWith('.js') || file.endsWith('.ts')
+        (file) => file.endsWith('.js') || file.endsWith('.ts'),
       );
 
       for (const file of commandFiles) {
-        const command: ApplicationCommand = (await import(`./commands/${file}`))
-          .default as ApplicationCommand;
+        const module = (await import(`./commands/${file}`)) as commandModule<ApplicationCommand>;
+        const command: ApplicationCommand = module.default;
         const commandData = command.data.toJSON();
         commands.push(commandData);
       }
@@ -64,12 +64,12 @@ export default new MessageCommand({
 
       const commands: RESTPostAPIApplicationCommandsJSONBody[] = [];
       const commandFiles: string[] = readdirSync('./commands').filter(
-        (file) => file.endsWith('.js') || file.endsWith('.ts')
+        (file) => file.endsWith('.js') || file.endsWith('.ts'),
       );
 
       for (const file of commandFiles) {
-        const command: ApplicationCommand = (await import(`./commands/${file}`))
-          .default as ApplicationCommand;
+        const module = (await import(`./commands/${file}`)) as commandModule<ApplicationCommand>;
+        const command: ApplicationCommand = module.default;
         const commandData = command.data.toJSON();
         commands.push(commandData);
       }

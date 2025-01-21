@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import type {
   ChatInputCommandInteraction,
   SlashCommandBuilder,
   SlashCommandSubcommandsOnlyBuilder,
 } from 'discord.js';
 import logger from '../logger.js';
+import type { commandModule } from '../types/interface.js';
 import type SubCommand from './SubCommand.js';
 
 /**
@@ -39,18 +39,15 @@ export default class ApplicationCommand {
           });
         } else {
           try {
-            const command: SubCommand = (
-              await import(
-                `../subCommands/${this.data.name}/${
-                  subCommandGroup ? `${subCommandGroup}/` : ''
-                }${commandName}.js`
-              )
-            ).default as SubCommand;
+            const module = (await import(
+              `../subCommands/${this.data.name}/${subCommandGroup ? `${subCommandGroup}/` : ''}${commandName}.js`
+            )) as commandModule<SubCommand>;
+            const command: SubCommand = module.default;
             await command.execute(interaction);
           } catch (error) {
             logger.error(error);
             await interaction.reply({
-              content: 'An error occured when attempting to execute that command!',
+              content: 'An error occurred when attempting to execute that command!',
               ephemeral: true,
             });
           }
