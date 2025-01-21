@@ -1,8 +1,7 @@
-/* eslint-disable no-var */
-import { Client, Collection } from 'discord.js';
-import ApplicationCommand from '../templates/ApplicationCommand';
-import MessageCommand from '../templates/MessageCommand';
-import ButtonCommand from './templates/ButtonCommands.ts';
+import { type Client, type Collection } from 'discord.js';
+import type ApplicationCommand from '../templates/ApplicationCommand.ts';
+import type ButtonCommand from '../templates/ButtonCommands.ts';
+import type MessageCommand from '../templates/MessageCommand.ts';
 
 interface DiscordClient extends Client {
   commands: Collection<string, ApplicationCommand>;
@@ -12,6 +11,7 @@ interface DiscordClient extends Client {
 }
 
 declare global {
+  // eslint-disable-next-line no-var
   var client: DiscordClient;
 
   type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
