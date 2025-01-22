@@ -58,7 +58,9 @@ const contextCommandFiles: string[] = readdirSync('./interactions/contextCommand
   (file) => file.endsWith('.js') || file.endsWith('.ts'),
 );
 for (const file of contextCommandFiles) {
-  const module = (await import(`./interactions/commands/${file}`)) as commandModule<ContextCommand>;
+  const module = (await import(
+    `./interactions/contextCommands/${file}`
+  )) as commandModule<ContextCommand>;
   const command: ContextCommand = module.default;
   client.contextCommands.set(command.data.name, command);
 }

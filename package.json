@@ -12,7 +12,7 @@
     "copy": "cp src/.env dist",
     "build": "yarn run lint && yarn run prettier && yarn run compile && yarn run copy",
     "start": "cd ./dist && node index.js",
-    "test": "cd ./src && ts-node --esm --files index.ts"
+    "test": "ts-node --esm --files src/index.ts"
   },
   "dependencies": {
     "@discordjs/rest": "^2.4.2",

@@ -4,7 +4,7 @@ A quick-start template for Discord.js v14 in Typescript with yarn that contains 
 
 I added Button interaction and Context interaction to this, and I will add more features like select list in the future.
 
-> This project is a frok of [TSLARoadster/TypeScript-Discord.js-v14-Template](https://github.com/TSLARoadster/TypeScript-Discord.js-v14-Template)
+> This project is a fork of [TSLARoadster/TypeScript-Discord.js-v14-Template](https://github.com/TSLARoadster/TypeScript-Discord.js-v14-Template)
 
 And you can find another features on my [another discord bot repo](https://github.com/ry2x/mofumofu-discord-bot)!
 
@@ -33,7 +33,7 @@ And you can find another features on my [another discord bot repo](https://githu
 2. Rename `RENAME.env` to `.env`
 3. Edit `./src/config.json`
    
-   Chnage "!" to configure your prefix
+   Change "!" to configure your prefix
    ```json
    {
     "prefix": "!"  
