@@ -1,7 +1,7 @@
 import { readdirSync } from 'fs';
 import { REST } from '@discordjs/rest';
 import { type RESTPostAPIApplicationCommandsJSONBody, Routes } from 'discord.js';
-import config from '../config.json' assert { type: 'json' };
+import config from '../config.json' with { type: 'json' };
 import logger from '../logger.js';
 import type ApplicationCommand from '../templates/ApplicationCommand.js';
 import MessageCommand from '../templates/MessageCommand.js';

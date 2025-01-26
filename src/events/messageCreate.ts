@@ -1,5 +1,5 @@
 import { Events, type Message } from 'discord.js';
-import config from '../config.json' assert { type: 'json' };
+import config from '../config.json' with { type: 'json' };
 import logger from '../logger.js';
 import Event from '../templates/Event.js';
 import type MessageCommand from '../templates/MessageCommand.js';
@@ -7,7 +7,7 @@ import type MessageCommand from '../templates/MessageCommand.js';
 export default new Event({
   name: Events.MessageCreate,
   async execute(message: Message): Promise<void> {
-    // ! Message content is a priviliged intent now!
+    // ! Message content is a privileged intent now!
 
     // Handles non-slash commands, only recommended for deploy commands
 

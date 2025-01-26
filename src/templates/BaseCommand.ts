@@ -6,7 +6,7 @@ export default class BaseCommand<T, K> {
    * @param {{
    *   data: T;
    *   execute: (interaction: K) => Promise<void> | void;
-   * }} - option
+   * }} options
    */
   constructor(options: { data: T; execute: (interaction: K) => Promise<void> | void }) {
     if (options.execute) {

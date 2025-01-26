@@ -1,9 +1,9 @@
-import config from '../config.json' assert { type: 'json' };
+import config from '../config.json' with { type: 'json' };
 import MessageCommand from '../templates/MessageCommand.js';
 
 export default new MessageCommand({
   name: 'undeploy',
-  description: 'Undeploys the slash commands',
+  description: 'Undeploy the slash commands',
   async execute(message, args): Promise<void> {
     if (message.author.id !== client.application?.owner?.id) return;
 
@@ -15,19 +15,19 @@ export default new MessageCommand({
     }
 
     if (args[0].toLowerCase() === 'global') {
-      // global undeployment
+      // global un-deployment
 
       // undeploy the commands
       await client.application?.commands.set([]);
 
-      await message.reply('Undeploying!');
+      await message.reply('Underlying!');
     } else if (args[0].toLowerCase() === 'guild') {
       // guild deployment
 
       // undeploy the commands
       await message.guild?.commands.set([]);
 
-      await message.reply('Undeploying!');
+      await message.reply('Underlying!');
     }
   },
 });
