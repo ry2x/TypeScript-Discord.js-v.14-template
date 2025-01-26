@@ -4,6 +4,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "cSpell.words": ["nodenext"],
+  "cSpell.words": ["grouptest", "nodenext", "pingping", "subcommandtest"],
   "typescript.tsdk": "node_modules\\typescript\\lib"
 }
