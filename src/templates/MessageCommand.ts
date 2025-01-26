@@ -1,28 +1,27 @@
-import type { Message } from 'discord.js';
-import BaseCommand from './BaseCommand.js';
+import { type Message } from 'discord.js';
 
-/*
- * Represents a Message Command
- */
-export default class MessageCommand extends BaseCommand {
+export default class MessageCommand {
+  name: string;
+  description: string;
+  execute: (message: Message, args: string[]) => Promise<void> | void;
   aliases: string[];
-  override execute: (message: Message, args: string[]) => Promise<void> | void;
 
   /**
    * @param {{
    *      name: string,
    *      description: string,
-   *      aliases?: string[],
-   *      execute: (message: Message, args: string[]) => Promise<void> | void
+   *      execute: (message: Message, args: string[]) => Promise<void> | void,
+   *      aliases?: string[]
    *  }} options - The options for the message command
    */
   constructor(options: {
     name: string;
     description: string;
-    aliases?: string[];
     execute: (message: Message, args: string[]) => Promise<void> | void;
+    aliases?: string[];
   }) {
-    super(options);
+    this.name = options.name;
+    this.description = options.description;
     this.execute = options.execute;
     this.aliases = options.aliases ?? [];
   }

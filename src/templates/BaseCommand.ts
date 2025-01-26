@@ -1,47 +1,20 @@
-/**
- * Base class for all commands
- * @abstract
- */
-export default abstract class BaseCommand {
-  name: string;
-  description: string;
-  execute: (...args: any) => Promise<void> | void;
+export default class BaseCommand<T, K> {
+  data: T;
+  execute: (interaction: K) => Promise<void> | void;
 
   /**
    * @param {{
-   *      name: string,
-   *      description: string,
-   *      execute: (...args: any) => Promise<void> | void
-   *  }} object
+   *   data: T;
+   *   execute: (interaction: K) => Promise<void> | void;
+   * }} - option
    */
-  constructor(object: {
-    name: string;
-    description: string;
-    execute: (...args: any) => Promise<void> | void;
-  }) {
-    this.name = object.name;
-    this.description = object.description;
-    this.execute = object.execute;
-  }
+  constructor(options: { data: T; execute: (interaction: K) => Promise<void> | void }) {
+    if (options.execute) {
+      this.execute = options.execute;
+    } else {
+      throw new Error('No execute function provided');
+    }
 
-  /**
-   * @param {string} name - The name
-   */
-  setName(name: string): void {
-    this.name = name;
-  }
-
-  /**
-   * @param {string} description - The description
-   */
-  setDescription(description: string): void {
-    this.description = description;
-  }
-
-  /**
-   * @param {(...args: any) => Promise<void> | void} executeFunction - The function
-   */
-  setExecute(executeFunction: (...args: any) => Promise<void> | void): void {
-    this.execute = executeFunction;
+    this.data = options.data;
   }
 }

@@ -5,9 +5,14 @@ import { Client, GatewayIntentBits, Collection, Partials } from 'discord.js';
 import deployGlobalCommands from './deployGlobalCommands.js';
 import logger from './logger.js';
 import type ApplicationCommand from './templates/ApplicationCommand.js';
-import type ButtonCommand from './templates/ButtonCommands.js';
-import type ContextCommand from './templates/ContextCommands.js';
 import type Event from './templates/Event.js';
+import {
+  type AutocompleteCommand,
+  type ModalCommand,
+  type SelectCommand,
+  type ContextCommand,
+  type ButtonCommand,
+} from './templates/InteractionCommands.js';
 import type MessageCommand from './templates/MessageCommand.js';
 import type { commandModule } from './types/interface.js';
 
@@ -34,7 +39,12 @@ global.client = Object.assign(
     commands: new Collection<string, ApplicationCommand>(),
     msgCommands: new Collection<string, MessageCommand>(),
     contextCommands: new Collection<string, ContextCommand>(),
-    buttonCommands: new Collection<string, ButtonCommand>(),
+    components: {
+      buttons: new Collection<string, ButtonCommand>(),
+      selects: new Collection<string, SelectCommand>(),
+      modals: new Collection<string, ModalCommand>(),
+      autocomplete: new Collection<string, AutocompleteCommand>(),
+    },
   },
 );
 
@@ -43,39 +53,27 @@ logger.info(
   'Set each command in the commands folder as a command in the client.commands collection',
 );
 
-const commandFiles: string[] = readdirSync('./interactions/commands').filter(
+// Set SlashCommands
+const commandFiles: string[] = readdirSync('./commands').filter(
   (file) => file.endsWith('.js') || file.endsWith('.ts'),
 );
 for (const file of commandFiles) {
-  const module = (await import(
-    `./interactions/commands/${file}`
-  )) as commandModule<ApplicationCommand>;
+  const module = (await import(`./commands/${file}`)) as commandModule<ApplicationCommand>;
   const command: ApplicationCommand = module.default;
   client.commands.set(command.data.name, command);
 }
 
-const contextCommandFiles: string[] = readdirSync('./interactions/contextCommands').filter(
+// Set ContextCommands
+const contextCommandFiles: string[] = readdirSync('./contexts').filter(
   (file) => file.endsWith('.js') || file.endsWith('.ts'),
 );
 for (const file of contextCommandFiles) {
-  const module = (await import(
-    `./interactions/contextCommands/${file}`
-  )) as commandModule<ContextCommand>;
+  const module = (await import(`./contexts/${file}`)) as commandModule<ContextCommand>;
   const command: ContextCommand = module.default;
   client.contextCommands.set(command.data.name, command);
 }
 
-const buttonCommandFiles: string[] = readdirSync('./interactions/buttonCommands').filter(
-  (file) => file.endsWith('.js') || file.endsWith('.ts'),
-);
-for (const file of buttonCommandFiles) {
-  const module = (await import(
-    `./interactions/buttonCommands/${file}`
-  )) as commandModule<ButtonCommand>;
-  const command: ButtonCommand = module.default;
-  client.buttonCommands.set(command.data.name, command);
-}
-
+// Set MessageCommands
 const msgCommandFiles: string[] = readdirSync('./messageCommands').filter(
   (file) => file.endsWith('.js') || file.endsWith('.ts'),
 );
@@ -83,6 +81,27 @@ for (const file of msgCommandFiles) {
   const module = (await import(`./messageCommands/${file}`)) as commandModule<MessageCommand>;
   const command: MessageCommand = module.default;
   client.msgCommands.set(command.name, command);
+}
+
+// Set ComponentCommands
+for (const directory of readdirSync('./components')) {
+  if (directory in client.components) {
+    for (const file of readdirSync(`./components/${directory}`).filter(
+      (file) => file.endsWith('.js') || file.endsWith('.ts'),
+    )) {
+      const module = (await import(`./components/${directory}/${file}`)) as commandModule<
+        ButtonCommand | SelectCommand | ModalCommand | AutocompleteCommand
+      >;
+      const command: ButtonCommand | SelectCommand | ModalCommand | AutocompleteCommand =
+        module.default;
+      (
+        client.components[directory as keyof typeof client.components] as Collection<
+          string,
+          typeof command
+        >
+      ).set(command.data.name, command);
+    }
+  }
 }
 
 // Event handling
