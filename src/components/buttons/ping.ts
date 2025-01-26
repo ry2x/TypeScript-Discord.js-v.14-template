@@ -1,4 +1,4 @@
-import ButtonCommand from '../../templates/ButtonCommands.js';
+import { ButtonCommand } from '../../templates/InteractionCommands.js';
 
 export default new ButtonCommand({
   data: {

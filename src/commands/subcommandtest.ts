@@ -3,7 +3,7 @@ import {
   SlashCommandSubcommandBuilder,
   SlashCommandSubcommandGroupBuilder,
 } from 'discord.js';
-import ApplicationCommand from '../../templates/ApplicationCommand.js';
+import ApplicationCommand from '../templates/ApplicationCommand.js';
 
 export default new ApplicationCommand({
   data: new SlashCommandBuilder()
@@ -14,9 +14,7 @@ export default new ApplicationCommand({
         .setName('grouptest')
         .setDescription('A test for subcommand groups')
         .addSubcommand(
-          new SlashCommandSubcommandBuilder()
-            .setName('pingping')
-            .setDescription('Replies pongpong!'),
+          new SlashCommandSubcommandBuilder().setName('pingping').setDescription('Replies ping!'),
         ),
     )
     .addSubcommand(

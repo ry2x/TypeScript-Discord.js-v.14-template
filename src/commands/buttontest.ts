@@ -8,7 +8,7 @@ import {
   EmbedBuilder,
   SlashCommandBuilder,
 } from 'discord.js';
-import ApplicationCommand from '../../templates/ApplicationCommand.js';
+import ApplicationCommand from '../templates/ApplicationCommand.js';
 
 export default new ApplicationCommand({
   data: new SlashCommandBuilder().setName('test-button').setDescription('Button test'),
