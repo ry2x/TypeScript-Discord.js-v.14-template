@@ -9,11 +9,10 @@
     "prepare": "husky install",
     "lint": "eslint --cache --fix src",
     "prettier": "prettier --write src",
-    "compile": "tsc",
-    "copy": "cp src/.env dist",
-    "build": "yarn run lint && yarn run prettier && yarn run compile && yarn run copy",
-    "start": "cd ./dist && node index.js",
-    "test": "ts-node --esm --files src/index.ts"
+    "compile": "tsc && pnpm run copy",
+    "copy": "npx copyfiles -u 1 src/.env dist/",
+    "start": "pnpm run compile && node dist/index.js",
+    "clean": "npx rimraf dist"
   },
   "dependencies": {
     "@discordjs/rest": "^2.4.2",
