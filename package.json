@@ -10,8 +10,8 @@
     "lint": "eslint --cache --fix src",
     "prettier": "prettier --write src",
     "compile": "tsc && pnpm run copy",
-    "copy": "npx copyfiles -u 1 src/.env dist/",
-    "start": "pnpm run compile && node dist/index.js",
+    "copy": "npx copyfiles -u 1 src/.env src/**/*.json dist/",
+    "start": "pnpm run compile && cd dist &&node index.js",
     "clean": "npx rimraf dist"
   },
   "dependencies": {

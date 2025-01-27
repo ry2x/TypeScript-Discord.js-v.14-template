@@ -1,5 +1,4 @@
 import 'dotenv/config';
-
 import { readdirSync } from 'fs';
 import { Client, GatewayIntentBits, Collection, Partials } from 'discord.js';
 import deployGlobalCommands from './deployGlobalCommands.js';
@@ -18,14 +17,14 @@ import type { commandModule } from './types/interface.js';
 
 const { TOKEN } = process.env;
 
-logger.info('----Starting bot----');
+logger.info('[INITIALIZING CLIENT]');
 
 await deployGlobalCommands();
 
-logger.info('----finish deploy global commands----');
+logger.info('[FINISHED DEPLOYING GLOBAL COMMANDS]');
 
 // Discord client object
-logger.info('Create Discord Client...');
+logger.info('Create Discord Client Object');
 global.client = Object.assign(
   new Client({
     intents: [
@@ -49,11 +48,10 @@ global.client = Object.assign(
 );
 
 // Set each command in the commands folder as a command in the client.commands collection
-logger.info(
-  'Set each command in the commands folder as a command in the client.commands collection',
-);
+logger.info('[CREATING COMMANDS COLLECTIONS]');
 
 // Set SlashCommands
+logger.info('SlashCommands');
 const commandFiles: string[] = readdirSync('./commands').filter(
   (file) => file.endsWith('.js') || file.endsWith('.ts'),
 );
@@ -64,6 +62,7 @@ for (const file of commandFiles) {
 }
 
 // Set ContextCommands
+logger.info('ContextCommands');
 const contextCommandFiles: string[] = readdirSync('./contexts').filter(
   (file) => file.endsWith('.js') || file.endsWith('.ts'),
 );
@@ -74,6 +73,7 @@ for (const file of contextCommandFiles) {
 }
 
 // Set MessageCommands
+logger.info('MessageCommands');
 const msgCommandFiles: string[] = readdirSync('./messageCommands').filter(
   (file) => file.endsWith('.js') || file.endsWith('.ts'),
 );
@@ -84,6 +84,7 @@ for (const file of msgCommandFiles) {
 }
 
 // Set ComponentCommands
+logger.info('ComponentCommands');
 for (const directory of readdirSync('./components')) {
   if (directory in client.components) {
     for (const file of readdirSync(`./components/${directory}`).filter(
@@ -105,7 +106,7 @@ for (const directory of readdirSync('./components')) {
 }
 
 // Event handling
-logger.info('Create Event Handler...');
+logger.info('EventHandler');
 const eventFiles: string[] = readdirSync('./events').filter(
   (file) => file.endsWith('.js') || file.endsWith('.ts'),
 );
@@ -125,4 +126,4 @@ for (const file of eventFiles) {
 }
 
 await client.login(TOKEN);
-logger.info('Bot logged in!');
+logger.info('[END STARTING]');

@@ -9,7 +9,7 @@ import type { commandModule } from './types/interface.js';
 const { TOKEN, CLIENT_ID } = process.env;
 
 export default async function deployGlobalCommands() {
-  logger.info('----starting global commands deployment----');
+  logger.info('[STARTING DEPLOYING GLOBAL COMMANDS]');
 
   const commands: RESTPostAPIApplicationCommandsJSONBody[] = [];
   const commandFiles: string[] = readdirSync('./commands').filter(
@@ -32,18 +32,18 @@ export default async function deployGlobalCommands() {
     commands.push(commandData);
   }
 
-  logger.info('---Pushed application commands---');
+  logger.info('PUSH COMMANDS TO DISCORD');
 
   const rest = new REST({ version: '10' }).setToken(TOKEN as string);
 
   try {
-    logger.info('---Starting refreshing application (/) commands.---');
+    logger.info('PUSHING COMMANDS TO DISCORD');
 
     await rest.put(Routes.applicationCommands(CLIENT_ID as string), {
       body: commands,
     });
 
-    logger.info('---Successfully reloaded application (/) commands.---');
+    logger.info('[END DEPLOYING GLOBAL COMMANDS]');
   } catch (error) {
     logger.error(error);
   }
